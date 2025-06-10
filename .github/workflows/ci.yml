@@ -1,0 +1,32 @@
+# 워크플로우의 이름
+name: Java CI with Gradle
+
+# 언제 이 워크플로우를 실행할지 정의
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 실행될 작업
+jobs:
+  build:
+    # 실행 환경
+    runs-on: ubuntu-latest
+
+    # 실행 단계
+    steps:
+      # 1. 저장소 코드 가져오기
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. JDK 17 설치
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Gradle로 빌드 및 테스트 실행
+      - name: Build with Gradle
+        run: ./gradlew build
